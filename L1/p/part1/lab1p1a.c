@@ -9,9 +9,9 @@ int func(int x) {
 
 int y = 10;
 
-int *(*pfptr)();
+int* (*pfptr)();
 
-int *func2() {
+int* func2() {
     return &y;
 }
 

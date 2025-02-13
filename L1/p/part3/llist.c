@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "llist.h"
+// typedef struct llist {
+//     char filename[MAX_FNAME_LEN];
+//     int filesize;
+//     int startblock;
+//     struct llist *prev, *next;
+// } TLinkedList;
 
 // Initialize the linked list by setting head to NULL
 // PRE: head is the pointer variable that points to the
@@ -29,7 +35,12 @@ TLinkedList *create_node(char *filename, int filesize, int startblock) {
 // POST: node is inserted into the linked list.
 
 void insert_llist(TLinkedList **head, TLinkedList *node) {
+    if (head && *head && node) {
+        *head = node;
+        node->prev = head;
+    }
 }
+
 
 // Delete node from the linkedlist
 // PRE: head = Pointer variable pointing to the start of the linked list
