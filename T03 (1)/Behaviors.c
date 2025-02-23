@@ -11,11 +11,12 @@ void DoWork(int iterations, int delay)
     for (i = 0; i < iterations; i++){
         printf("[%d]: Step %d\n", getpid(), i);
         for (j = 0; j < delay; j++);    //introduce some fictional work
+        // nothing is here, compile optimization may skip this completely
     }
 
 }
-
-int main(int argc, char* argv[])
+// D ~ 310000
+int main(int argc, char* argv[])    
 {
     int childpid;
     int delay;

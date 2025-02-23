@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.embeddedhtml": "html",
-        "queue.h": "c"
+        "queue.h": "c",
+        "types.h": "c"
     }
 }
