@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     // 1      1      0        = 6
     // 1      0      0        = 4
     shmid = shmget(IPC_PRIVATE, 1*sizeof(int), IPC_CREAT | 0600);
+    // shmid = shmget( IPC_PRIVATE, 40*sizeof(int), IPC_CREAT | 0666);
     if (shmid == -1) {
         printf("Cannot create shared memory!\n");
         exit(1);
