@@ -3,6 +3,17 @@
 #include<sys/ipc.h>
 #include<sys/shm.h>
 #include<unistd.h>
+
+/**
+ * Compile and run master_prog.c first;
+ * Get the shmid,
+ * On another terminal, compile and run slave_prog.c, 
+ * Enter the shmid from shmget when running master_prog, and params
+ * slave_prog executes
+ * master_prog get the result back from slave_prog after its execution
+*/
+
+
 int main() {
     int shmid;
     int i;
