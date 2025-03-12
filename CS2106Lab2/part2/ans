@@ -1,0 +1,131 @@
+2.1
+Yes because the order of Child and parent i being printed is non determinstic
+
+2.2
+terminal 1:
+I am the parent.
+My ID is 32048
+My parent's ID is 31724
+My child's ID is 32049
+
+Parent: i = 5
+
+I am the child.
+My ID is 32049
+My parent's ID is 32048
+
+Child: i = 10
+Parent: i = 6
+Child: i = 11
+Parent: i = 7
+Parent: i = 8
+Child: i = 12
+Parent: i = 9
+
+Waiting for child to exit.
+Child: i = 13
+Child: i = 14
+CHILD HAS EXITED WITH STATUS 25
+
+terminal 2:
+22926 ttys001    0:00.41 -zsh
+15899 ttys009    0:00.16 /bin/zsh -il
+21682 ttys011    0:00.25 /bin/zsh -il
+30663 ttys013    0:00.20 /bin/zsh -il
+31724 ttys013    0:00.01 bash          <- the bash shell running lab2p2a
+32048 ttys013    0:00.00 ./lab2p2a     <- the parent process 
+32049 ttys013    0:00.00 ./lab2p2a     <- child process
+30852 ttys015    0:00.16 /bin/zsh -il
+31703 ttys015    0:00.01 bash
+
+2c
+ac = 1
+Arguments:
+Arg 0 is ./lab2p2b
+Env 0 is PERLBREW_SHELLRC_VERSION=0.98
+Env 1 is NVM_RC_VERSION=
+Env 2 is MANPATH=/Users/wxy/perl5/perlbrew/perls/perl-5.32.0/man:/opt/anaconda3/share/man:/opt/anaconda3/man:/Users/wxy/.sdkman/candidates/java/current/man:/usr/local/share/man:/opt/homebrew/share/man:/Library/Frameworks/Python.framework/Versions/3.12/share/man:/usr/share/man:/Library/TeX/texbin/man:/Applications/Postgres.app/Contents/Versions/17/share/man:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man
+Env 3 is PERLBREW_VERSION=0.98
+Env 4 is TERM_PROGRAM=vscode
+Env 5 is PERLBREW_PERL=perl-5.32.0
+Env 6 is NVM_CD_FLAGS=-q
+Env 7 is TERM=xterm-256color
+Env 8 is SHELL=/bin/zsh
+Env 9 is HOMEBREW_REPOSITORY=/opt/homebrew
+Env 10 is TMPDIR=/var/folders/t3/gksdxkk12j373vntrgwjld480000gn/T/
+Env 11 is CONDA_SHLVL=1
+Env 12 is CONDA_PROMPT_MODIFIER=(base) 
+Env 13 is TERM_PROGRAM_VERSION=1.95.3
+Env 14 is GSETTINGS_SCHEMA_DIR_CONDA_BACKUP=
+Env 15 is ZDOTDIR=/Users/wxy
+Env 16 is ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+Env 17 is MallocNanoZone=0
+Env 18 is SDKMAN_PLATFORM=darwinarm64
+Env 19 is NVM_DIR=/Users/wxy/.nvm
+Env 20 is USER=wxy
+Env 21 is COMMAND_MODE=unix2003
+Env 22 is CONDA_EXE=/opt/anaconda3/bin/conda
+Env 23 is SDKMAN_CANDIDATES_API=https://api.sdkman.io/2
+Env 24 is SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.HjANkobsuD/Listeners
+Env 25 is __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x2
+Env 26 is PERLBREW_ROOT=/Users/wxy/perl5/perlbrew
+Env 27 is _CE_CONDA=
+Env 28 is PATH=/Users/wxy/perl5/perlbrew/bin:/Users/wxy/perl5/perlbrew/perls/perl-5.32.0/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Users/wxy/.sdkman/candidates/java/current/bin:/usr/local/bin:/opt/homebrew/bin:/Users/wxy/.cabal/bin:/Users/wxy/.ghcup/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/Postgres.app/Contents/Versions/17/bin
+Env 29 is GSETTINGS_SCHEMA_DIR=/opt/anaconda3/share/glib-2.0/schemas
+Env 30 is CONDA_PREFIX=/opt/anaconda3
+Env 31 is USER_ZDOTDIR=/Users/wxy
+Env 32 is __CFBundleIdentifier=com.microsoft.VSCode
+Env 33 is PWD=/Users/wxy/Desktop/CS2106/CS2106Lab2/part2
+Env 34 is JAVA_HOME=/Users/wxy/.sdkman/candidates/java/current
+Env 35 is LANG=en_US.UTF-8
+Env 36 is PERLBREW_HOME=/Users/wxy/.perlbrew
+Env 37 is VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+Env 38 is XPC_FLAGS=0x0
+Env 39 is _CE_M=
+Env 40 is CXX=/opt/homebrew/bin/g++-14
+Env 41 is XPC_SERVICE_NAME=0
+Env 42 is VSCODE_INJECTION=1
+Env 43 is SHLVL=2
+Env 44 is HOME=/Users/wxy
+Env 45 is VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/t3/gksdxkk12j373vntrgwjld480000gn/T/AppTranslocation/8884E518-F3F3-4828-B00F-0C5593820A51/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+Env 46 is PERLBREW_MANPATH=/Users/wxy/perl5/perlbrew/perls/perl-5.32.0/man
+Env 47 is HOMEBREW_PREFIX=/opt/homebrew
+Env 48 is PERLBREW_PATH=/Users/wxy/perl5/perlbrew/bin:/Users/wxy/perl5/perlbrew/perls/perl-5.32.0/bin
+Env 49 is CONDA_PYTHON_EXE=/opt/anaconda3/bin/python
+Env 50 is LOGNAME=wxy
+Env 51 is SDKMAN_DIR=/Users/wxy/.sdkman
+Env 52 is VSCODE_GIT_IPC_HANDLE=/var/folders/t3/gksdxkk12j373vntrgwjld480000gn/T/vscode-git-0c9a727b6f.sock
+Env 53 is CONDA_DEFAULT_ENV=base
+Env 54 is SDKMAN_CANDIDATES_DIR=/Users/wxy/.sdkman/candidates
+Env 55 is INFOPATH=/opt/homebrew/share/info:
+Env 56 is HOMEBREW_CELLAR=/opt/homebrew/Cellar
+Env 57 is VSCODE_GIT_ASKPASS_NODE=/private/var/folders/t3/gksdxkk12j373vntrgwjld480000gn/T/AppTranslocation/8884E518-F3F3-4828-B00F-0C5593820A51/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+Env 58 is GIT_ASKPASS=/private/var/folders/t3/gksdxkk12j373vntrgwjld480000gn/T/AppTranslocation/8884E518-F3F3-4828-B00F-0C5593820A51/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+Env 59 is COLORTERM=truecolor
+Env 60 is _=./lab2p2b
+
+
+ac is the number of arguments main takes, 
+av is the array containing all argumnets, 
+vp are the array of all environment variables 
+
+2.4
+from 
+execlp("cat", "cat", "file.txt", NULL);
+
+to 
+char* args[] = {"cat", "file.txt", NULL};
+execvp("cat", args);
+
+Store the arguments in an array instead of individually like in execlp
+
+2.5 
+dup2(old, new) duplicates the old with the new file descriptor.
+dup2(fp_in, STDIN_FILENO); duplicates fp_in to stdin and so instead of reading from the stdin the process will read from file.txt
+dup2(fp_out, STDOUT_FILENO); duplicates fp_out with stdout, so instead of printing to stdout the process will write to talk.out
+
+2.6 
+Closing the write end allows the reading process to detect EOF, 
+so it can terminate instead of waiting indefinitely. 
+Closing the read end causes SIGPIPE to be sent to the writing process, 
+terminating it if the signal is not handled.
