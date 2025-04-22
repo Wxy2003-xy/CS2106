@@ -2,6 +2,11 @@
     "files.associations": {
         "*.embeddedhtml": "html",
         "queue.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "iosfwd": "cpp",
+        "mymalloc.h": "c",
+        "llist.h": "c",
+        "filesystem": "c",
+        "share.h": "c"
     }
 }
