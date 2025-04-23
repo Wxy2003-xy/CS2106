@@ -7,6 +7,7 @@
         "mymalloc.h": "c",
         "llist.h": "c",
         "filesystem": "c",
-        "share.h": "c"
+        "share.h": "c",
+        "stdlib.h": "c"
     }
 }

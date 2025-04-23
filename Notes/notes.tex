@@ -1,0 +1,178 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry, enumitem, xcolor}
+\geometry{margin=1in}
+
+\title{POSIX Process and Thread Management Notes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. \texttt{fork()} and Process Creation}
+
+\begin{itemize}[leftmargin=2em]
+    \item \texttt{fork()} creates a new process (child) by duplicating the calling process.
+    \item Return values:
+    \begin{itemize}
+        \item \texttt{0} in the child process.
+        \item Child PID in the parent process.
+        \item \texttt{-1} if the fork fails.
+    \end{itemize}
+    \item The child process receives a copy-on-write duplicate of the parent's memory and file descriptor table.
+    \item Use \texttt{wait()} or \texttt{waitpid()} in the parent to reap the child and avoid zombie processes.
+    \item Each child should call \texttt{exit()} (or return from \texttt{main()}) to terminate cleanly.
+\end{itemize}
+
+\section*{2. \texttt{exec()} Family of Functions}
+
+All \texttt{exec*()} functions replace the current process image with a new program.
+
+\subsection*{Variants}
+\begin{itemize}[leftmargin=2em]
+    \item \texttt{execl(path, arg0, ..., NULL)} — List of arguments; full path required.
+    \item \texttt{execlp(file, arg0, ..., NULL)} — List + \texttt{PATH} lookup.
+    \item \texttt{execle(path, arg0, ..., NULL, envp)} — List + custom environment.
+    \item \texttt{execv(path, argv[])} — Vector of arguments; full path.
+    \item \texttt{execvp(file, argv[])} — Vector + \texttt{PATH} lookup.
+    \item \texttt{execvpe(file, argv[], envp[])} — Vector + \texttt{PATH} + custom environment (GNU-only).
+\end{itemize}
+
+\subsection*{Usage Table}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Function} & \textbf{Use When} & \textbf{PATH Lookup} \\
+\hline
+\texttt{execl}    & Static args, full path     & No  \\
+\texttt{execlp}   & Static args, uses \texttt{PATH} & Yes \\
+\texttt{execle}   & Static args, custom env    & No  \\
+\texttt{execv}    & Dynamic args, full path    & No  \\
+\texttt{execvp}   & Dynamic args, uses \texttt{PATH} & Yes \\
+\texttt{execvpe}  & Dynamic args, \texttt{PATH}, env & Yes (GNU-only) \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{3. POSIX Threads (\texttt{pthread})}
+
+\begin{itemize}[leftmargin=2em]
+    \item Java-style concurrency uses threads; POSIX provides \texttt{pthread} for this.
+    \item \texttt{pthread\_create()} spawns a thread that shares the same address space.
+    \item \texttt{pthread\_join()} waits for a thread to finish.
+    \item Threads can lead to race conditions and require proper synchronization.
+    \item Threads are more lightweight than processes but less isolated.
+\end{itemize}
+
+\section*{4. Semaphores}
+
+\begin{itemize}[leftmargin=2em]
+    \item Semaphores (\texttt{sem\_t}) are integer counters used to control access to shared resources.
+    \item \texttt{sem\_init(sem, pshared, value)} — Initialize semaphore to given value.
+    \item \texttt{sem\_wait(sem)} — Decrement; blocks if value is 0.
+    \item \texttt{sem\_post(sem)} — Increment; unblocks one waiter if any.
+    \item \texttt{sem\_destroy(sem)} — Cleans up; does not free memory.
+    \item Used for mutual exclusion (binary semaphores) or limiting access (counting semaphores).
+\end{itemize}
+
+\subsection*{Dining Philosophers: Limit-Seat Strategy}
+
+\begin{itemize}
+    \item Using a semaphore initialized to \( N - 1 \) prevents deadlock in the dining philosopher problem.
+    \item Limits the number of philosophers who can attempt to pick up chopsticks to ensure progress.
+    \item Prevents circular wait, breaking one of Coffman’s deadlock conditions.
+    \item Starvation is still possible due to unfair scheduling.
+\end{itemize}
+\section*{Key Terms}
+\begin{itemize}
+    \item \textbf{Turnaround time}: Total time from job arrival to completion.
+    \item \textbf{Response time}: Time from job arrival to first CPU execution.
+    \item \textbf{Waiting time}: Time a job spends in the ready queue.
+    \item \textbf{Throughput}: Number of jobs completed per unit time.
+\end{itemize}
+
+\section*{1. First-Come First-Served (FCFS)}
+
+\begin{itemize}
+    \item \textbf{Policy}: Run processes in the order they arrive.
+    \item \textbf{Preemptive?} No
+    \item \textbf{Response Time}: Can be poor for short jobs after long ones.
+    \item \textbf{Turnaround Time}: High if long jobs precede short ones.
+    \item \textbf{Advantages}: Simple, fair in arrival order.
+    \item \textbf{Disadvantages}: Convoy effect; poor average response time.
+\end{itemize}
+
+\section*{2. Shortest Job First (SJF)}
+
+\begin{itemize}
+    \item \textbf{Policy}: Run the job with the shortest total CPU burst time.
+    \item \textbf{Preemptive?} No
+    \item \textbf{Response Time}: Good for short jobs.
+    \item \textbf{Turnaround Time}: Optimal (provably minimal) if job length is known.
+    \item \textbf{Advantages}: Minimizes average turnaround time.
+    \item \textbf{Disadvantages}: Requires knowing job length; may cause starvation.
+\end{itemize}
+
+\section*{3. Shortest Remaining Time (SRT)}
+
+\begin{itemize}
+    \item \textbf{Policy}: Preemptive version of SJF; always run job with shortest remaining time.
+    \item \textbf{Preemptive?} Yes
+    \item \textbf{Response Time}: Very good for short jobs.
+    \item \textbf{Turnaround Time}: Optimal under perfect prediction.
+    \item \textbf{Advantages}: Great for interactive tasks.
+    \item \textbf{Disadvantages}: Starvation of long jobs; requires accurate prediction.
+\end{itemize}
+
+\section*{4. Round Robin (RR)}
+
+\begin{itemize}
+    \item \textbf{Policy}: Fixed time quantum; cycle through ready queue.
+    \item \textbf{Preemptive?} Yes
+    \item \textbf{Response Time}: Generally good, especially for short jobs.
+    \item \textbf{Turnaround Time}: Depends on quantum size.
+    \item \textbf{Advantages}: Fair, responsive for time-shared systems.
+    \item \textbf{Disadvantages}: Poor performance if quantum is too small or too large; context switch overhead.
+\end{itemize}
+
+\section*{5. Lottery Scheduling}
+
+\begin{itemize}
+    \item \textbf{Policy}: Processes hold ``lottery tickets''; winner gets CPU.
+    \item \textbf{Preemptive?} Yes (depends on implementation)
+    \item \textbf{Response Time}: Fair on average.
+    \item \textbf{Turnaround Time}: Probabilistically fair.
+    \item \textbf{Advantages}: Probabilistic fairness, flexible priority control.
+    \item \textbf{Disadvantages}: Randomized; no strict guarantees.
+\end{itemize}
+
+\section*{6. Multi-Level Feedback Queue (MLFQ)}
+
+\begin{itemize}
+    \item \textbf{Policy}: Multiple queues with increasing priorities; new jobs start at high priority and move down if they consume more CPU.
+    \item \textbf{Preemptive?} Yes
+    \item \textbf{Response Time}: Excellent for interactive jobs.
+    \item \textbf{Turnaround Time}: Adaptive; favors short and I/O-bound jobs.
+    \item \textbf{Advantages}: Dynamic, responsive, balances fairness and performance.
+    \item \textbf{Disadvantages}: Complex to tune; starvation possible without aging.
+\end{itemize}
+
+\section*{Comparison Table}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Preemptive} & \textbf{Fairness} & \textbf{Response Time} & \textbf{Turnaround Time} & \textbf{Starvation Risk} \\
+\hline
+FCFS & No & Arrival-order fair & Poor & High (convoy effect) & Low \\
+SJF  & No & No & Excellent for short jobs & Optimal (theoretical) & High \\
+SRT  & Yes & No & Best for short jobs & Optimal & High \\
+RR   & Yes & Yes & Good & Medium (depends on quantum) & Low \\
+Lottery & Optional & Probabilistic & Fair on average & Fair on average & Low \\
+MLFQ & Yes & Adaptive & Excellent & Adaptive & Moderate (if not tuned) \\
+\hline
+\end{tabular}
+\end{center}
+\end{document}
