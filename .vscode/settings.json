@@ -8,6 +8,8 @@
         "llist.h": "c",
         "filesystem": "c",
         "share.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "shared.h": "c",
+        "wait.h": "c"
     }
 }
