@@ -7,22 +7,28 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{tabularx}
-
+\usepackage{xcolor}
 \usepackage{setspace}
 \usepackage{listings}  
 \usepackage{dsfont}
 
-\lstset{frame=tb,
-  language=python,
+\lstset{
+  frame=tb,
+  language=C,
   aboveskip=3mm,
   belowskip=3mm,
-  showstringspaces=false,   
+  showstringspaces=false,
   columns=flexible,
   basicstyle={\small\ttfamily},
+  keywordstyle=\color{blue}\bfseries,       % <<<< keyword styling
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{orange},
   numbers=none,
   breaklines=true,
   breakatwhitespace=true,
-  tabsize=3
+  tabsize=3,
+  % If you want to highlight extra words:
+  morekeywords={uint32_t,size_t,shmat,shmget, sem_t, sem_wait, sem_post, SharedMem} % add your own identifiers here
 }
 \setstretch{0.2}
 \setlength{\extrarowheight}{0pt}
@@ -31,49 +37,47 @@
 \begin{itemize}[leftmargin=2em]
     \setlength{\itemsep}{0pt} % No extra space between items
     \setlength{\parskip}{0pt}
-    \item \texttt{fork()} creates a new process (child) by duplicating the calling process.
-    \item The child process receives a copy-on-write duplicate of the parent's memory and file descriptor table.
+    \item The child process from \texttt{fork()} receives a copy-on-write duplicate of the parent's memory and file descriptor table.
     \item Use \texttt{wait()} or \texttt{waitpid()} in the parent to reap the child and avoid zombie processes.
     \item Each child should call \texttt{exit()} (or return from \texttt{main()}) to terminate cleanly.
     \item All \texttt{exec*()} functions replace the current process image with a new program.
-    \item \texttt{execl(path, arg0, ..., NULL)} — List of arguments; full path required.
-    \item \texttt{execlp(file, arg0, ..., NULL)} — List + \texttt{PATH} lookup.
-    \item \texttt{execle(path, arg0, ..., NULL, envp)} — List + custom environment.
-    \item \texttt{execv(path, argv[])} — Vector of arguments; full path.
-    \item \texttt{execvp(file, argv[])} — Vector + \texttt{PATH} lookup.
-    \item \texttt{execvpe(file, argv[], envp[])} — Vector + \texttt{PATH} + custom environment (GNU-only).
 \end{itemize}
 \begin{center}
 \vspace{-1.0em}
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Function} & \textbf{Use When} & \textbf{PATH Lookup} \\
-\hline
-\texttt{execl}    & Static args, full path     & No  \\
-\hline
-
-\texttt{execlp}   & Static args, uses \texttt{PATH} & Yes \\
-\hline
-
-\texttt{execle}   & Static args, custom env    & No  \\
-\hline
-
-\texttt{execv}    & Dynamic args, full path    & No  \\
-\hline
-
-\texttt{execvp}   & Dynamic args, uses \texttt{PATH} & Yes \\
-\hline
-
-\texttt{execvpe}  & Dynamic args, \texttt{PATH}, env & Yes (GNU-only) \\
-\hline
-\end{tabular}
-\vspace{-1.0em}
+\resizebox{\linewidth}{!}{
+    \vspace{1em} % Small vertical gap between the two tables
+    \begin{tabular}{|l|l|c|c|}
+      \hline
+      \textbf{Function} & \textbf{Arguments} & \textbf{PATH} & \textbf{Custom Env} \\
+      \hline
+      \texttt{execl(path, arg0, …, NULL)}    & Arg list, full path            & No  & No  \\
+      \hline
+      \texttt{execlp(file, arg0, …, NULL)}   & Arg list, search \texttt{PATH} & Yes & No  \\
+      \hline
+      \texttt{execle(path, arg0, …, NULL, envp)} & Arg list, full path        & No  & Yes \\
+      \hline
+      \texttt{execv(path, argv[])}           & Arg vector, full path         & No  & No  \\
+      \hline
+      \texttt{execvp(file, argv[])}          & Arg vector, search \texttt{PATH} & Yes & No  \\
+      \hline
+      \texttt{execvpe(file, argv[], envp[])} & Arg vector, \texttt{PATH}, env  & Yes & Yes \\
+      \hline
+      \end{tabular}
+}
+  
+\vspace{-0.6em}
 \end{center}
 \begin{itemize}[leftmargin=2em]
     \setlength{\itemsep}{0pt} % No extra space between items
     \setlength{\parskip}{0pt}
-    \item \texttt{pthread\_create()} spawns a thread that shares the same address space.
-    \item \texttt{pthread\_join()} waits for a thread to finish.
+    \item \texttt{pthread\_create(\\ pthread\_t *thread, const pthread\_attr\_t *attr, void *(*start\_routine)(void *), void *arg)} \\
+    Spawns a thread that shares the same address space. Returns \texttt{0} on success.
+
+    \item \texttt{pthread\_join(pthread\_t thread, void **retval)} \\
+    Waits for a thread to finish and optionally retrieves its return value. Returns \texttt{0} on success.
+
+    \item \texttt{pthread\_exit(void *retval)} \\
+    Terminates the calling thread and makes \texttt{retval} available to \texttt{pthread\_join()}. Does not return.
     \item Semaphores (\texttt{sem\_t}) are integer counters used to control access to shared resources.
     \item \texttt{sem\_init(sem, [0(thread)|1(process)], value)} — Initialize semaphore to given value.
     \item \texttt{sem\_wait(sem)} — Decrement; blocks if value is 0.
@@ -98,28 +102,24 @@ typedef struct {
     sem_t mutex;
     sem_t sem[N]; 
 } SharedMem;
-void takeChpStk(SharedMem* shm, int i) {
+void takeChpStk(SharedMem* shm, int i) 
     sem_wait(&shm->mutex);
     shm->_status[i] = HUNGRY;
     safeToEat(shm, i);
     sem_post(&shm->mutex);
-    sem_wait(&shm->sem[i]);
-}
-void safeToEat(SharedMem* shm, int i) {
+    sem_wait(&shm->sem[i]);            
+void safeToEat(SharedMem* shm, int i) 
     if ((shm->_status[i] == HUNGRY) &&
         (shm->_status[LEFT] != EATING) &&
         (shm->_status[RIGHT] != EATING)) {
             shm->_status[i] = EATING;
-            sem_post(&shm->sem[i]);
-        }
-} 
-void putChpStk(SharedMem* shm, int i) {
+            sem_post(&shm->sem[i]);} 
+void putChpStk(SharedMem* shm, int i) 
     sem_wait(&shm->mutex);
     shm->_status[i] = THINKING;
     safeToEat(shm, LEFT);
     safeToEat(shm, RIGHT);
-    sem_post(&shm->mutex);
-}
+    sem_post(&shm->mutex);            
 \end{lstlisting}
 \vspace{-1.5em}
 \end{itemize}
@@ -132,49 +132,26 @@ void putChpStk(SharedMem* shm, int i) {
     \item \textbf{Throughput}: Number of jobs completed per unit time.
 \end{itemize}
 \vspace{-0.6em}
-\resizebox{\linewidth}{!}{\begin{tabular}{|l|c|c|c|}
-    \hline
-    \textbf{Algorithm} & \textbf{Preemptive} & \textbf{Fairness} & \textbf{Response Time} \\
-    \hline
-    FCFS    & No        & Arrival-order fair & Poor \\
-    \hline
-    SJF     & No        & No                 & Excellent for short jobs \\
-    \hline
-    SRT     & Yes       & No                 & Best for short jobs \\
-    \hline
-    RR      & Yes       & Yes                & Good \\
-    \hline
-    Lottery & Optional  & Probabilistic      & Fair on average \\
-    \hline
-    MLFQ    & Yes       & Adaptive           & Excellent \\
-    \hline
-    \end{tabular}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Preemptive} & \textbf{Fairness} & \textbf{Resp T} & \textbf{Turarnd T} & \textbf{Starv} \\
+\hline
+FCFS    & No       & by order               & $\downarrow$                        & $\uparrow$ (convoy effect)       & $\downarrow$ \\
+\hline
+SJF     & No       & No                               & $\uparrow$ short jobs    & Optm (theo)      & $\uparrow$ \\
+\hline
+SRT     & Yes      & No                               & $\uparrow$ short jobs         & Optm                    & $\uparrow$ \\
+\hline
+RR      & Yes      & Yes                              & $\uparrow$                        & dep (qtm)& Low \\
+\hline
+Lottery & Can &                     & $\tilde{\text{Fair}}$             & $\tilde{\text{Fair}}$            & $\downarrow$ \\
+\hline
+MLFQ    & Yes      & Adaptive                         & $\uparrow$                   & Adaptive                   & dep \\
+\hline
+\end{tabular}%
 }
-\resizebox{\linewidth}{!}{
-    \vspace{1em} % Small vertical gap between the two tables
-\begin{tabular}{|l|c|c|}
-\hline
-\textbf{Algorithm} & \textbf{Turnaround Time} & \textbf{Starvation Risk} \\
-\hline
-FCFS    & High (convoy effect)     & Low \\
-\hline
 
-SJF     & Optimal (theoretical)    & High \\
-\hline
-
-SRT     & Optimal                  & High \\
-\hline
-
-RR      & Medium (depends on quantum) & Low \\
-\hline
-
-Lottery & Fair on average          & Low \\
-\hline
-
-MLFQ    & Adaptive                 & Moderate (if not tuned) \\
-\hline
-\end{tabular}
-}
 \textbf{Table storage:}
 \vspace*{-0.8em}
 \begin{itemize}
@@ -267,7 +244,7 @@ MLFQ    & Adaptive                 & Moderate (if not tuned) \\
             goto Check page table;
 \end{lstlisting}
 \vspace{-0.6em}
-\textbf{Single-Level}
+\textbf{Single-Level Direct paging}
 \vspace{-0.6em}
 \begin{itemize}
     \setlength{\itemsep}{0pt} % No extra space between items
@@ -295,63 +272,12 @@ MLFQ    & Adaptive                 & Moderate (if not tuned) \\
   \item One entry per frame: \texttt{<pid, page\#>} $\rightarrow$ frame.
   \item Compact but slow due to full-table lookup.
 \end{itemize}
-\vspace{-1.6em}
-\begin{table}[h!]
-    \centering
-    \renewcommand{\arraystretch}{0.8}
-    \resizebox{\linewidth}{!}{
-    \begin{tabular}{|l|p{10cm}|}
-    \hline
-    \textbf{Feature} & \textbf{Direct Paging} \\
-    \hline
-    Page Table Size & Grows linearly with virtual space \\
-    \hline
-    Lookup Cost & Fast (1 access + TLB) \\
-    \hline
-    Translation Overhead & Simple calculation \\
-    \hline
-    Space Efficiency & Poor with sparse address spaces \\
-    \hline
-    Entry Granularity & One entry per virtual page \\
-    \hline
-    Process Isolation & Each process has separate page table \\
-    \hline
-    \end{tabular}
-    }
-    \end{table}
-    \vspace{-1.6em}
-    \begin{table}[h!]
-        \centering
-        \renewcommand{\arraystretch}{0.8}
-        \resizebox{\linewidth}{!}{
-        \begin{tabular}{|p{6cm}|p{6cm}|}
-        \hline
-        \textbf{Multilevel Paging} & \textbf{Inverted Page Table} \\
-        \hline
-        Compact, only allocates needed tables & Fixed size (per physical frame) \\
-        \hline
-        Slower (multi-level lookup) & Slow unless hashed (may need full scan) \\
-        \hline
-        Multiple memory accesses & Needs reverse mapping \\
-        \hline
-        Good for sparse address spaces & Excellent for large sparse spaces \\
-        \hline
-        One entry per virtual page & One entry per physical frame \\
-        \hline
-        Each process has separate page table & Global table with PID tag \\
-        \hline
-        \end{tabular}
-        }
-        \end{table}
-    \newpage
-\begin{itemize}
-    \setlength{\itemsep}{0pt} % No extra space between items
-    \setlength{\parskip}{0pt}
-  \item \textbf{Temporal Locality:} Recently used memory will be used again.
-  \item \textbf{Spatial Locality:} Nearby memory addresses are likely to be used soon.
-\end{itemize}
-\vspace{-2.0em}
+\vspace{-0.6em}
+\textbf{Temporal Locality:} Recently used memory will be used again.\\
+\textbf{Spatial Locality:} Nearby memory addresses are likely to be used soon.
+\vspace{-1.0em}
 \subsection*{Page Replacement Algorithms}
+\vspace{-0.6em}
 \begin{itemize}
     \setlength{\itemsep}{0pt} % No extra space between items
     \setlength{\parskip}{0pt}
@@ -391,7 +317,7 @@ T_{access} = (1 - p) \cdot T_{mem} + p \cdot T_{page\_fault}
     \setlength{\parskip}{0pt}
   \item Excessive page faults reduce CPU utilization.
   \item Can lead to cascading faults in global replacement.
-  \item \textbf{Working Set Model:} Allocate enough frames for \texttt{W(t, $\Delta$)}.
+  \item \textbf{Working Set Model:} Allocate enf frames for \texttt{W(t, $\Delta$)}.
 \end{itemize}
 \begin{itemize}
     \setlength{\itemsep}{0pt} % No extra space between items
@@ -408,7 +334,6 @@ operation removes the file from the table of open files.
     administrative entries remain in the file tables. Occasionally, the truncate operation
     removes the information from the file pointer to the end.
 \end{itemize}
-\vspace{-1.6em}
 \begin{table}[h!]
     \centering
     \renewcommand{\arraystretch}{0.6}
@@ -428,7 +353,6 @@ operation removes the file from the table of open files.
     \hline
     \end{tabular}
     \end{table}
-\vspace{-1.5em}
 
     \begin{table}[h!]
         \centering
@@ -461,54 +385,21 @@ operation removes the file from the table of open files.
   \item \textbf{Time, date, and owner information}: Includes creation time, last modification time, owner ID, etc.
   \item \textbf{Table of content}: Metadata that enables the file system to determine how to access the file.
 \end{itemize}
+\vspace*{-1.2em}
 \begin{itemize}
     \setlength{\itemsep}{0pt} % No extra space between items
     \setlength{\parskip}{0pt}
     \item A process uses the \texttt{open()} system call to access a file:
-    \begin{itemize}
-        \setlength{\itemsep}{0pt} % No extra space between items
-        \setlength{\parskip}{0pt}
-      \item Example: \texttt{int fd = open("data.txt", O\_RDONLY);}
-      \item Returns a file descriptor (\texttt{fd}), an integer index into the process’s file descriptor table.
-    \end{itemize}
-  
-    \item Internally, the OS performs:
-    \begin{itemize}
-        \setlength{\itemsep}{0pt} % No extra space between items
-        \setlength{\parskip}{0pt}
-      \item Path resolution and access permission check.
-      \item Loads file metadata (e.g. inode) into memory.
-      \item Creates an entry in the \textbf{System-wide Open File Table}, including:
-      \begin{itemize}
-        \setlength{\itemsep}{0pt} % No extra space between items
-        \setlength{\parskip}{0pt}
-        \item File offset (initially 0)
-        \item Pointer to file metadata (inode)
-        \item File mode (read, write, etc.)
-      \end{itemize}
-      \item Updates the process’s \textbf{Per-Process File Descriptor Table}:
-      \begin{itemize}
-        \setlength{\itemsep}{0pt} % No extra space between items
-        \setlength{\parskip}{0pt}
-        \item \texttt{fd} points to the corresponding system-wide table entry.
-      \end{itemize}
-    \end{itemize}
-  
+      \item Updates the process’s \textbf{Per-Process File Descriptor Table}: \texttt{fd} points to the corresponding system-wide table entry.
     \item Shared file descriptors:
+\vspace{-0.6em}
     \begin{itemize}
         \setlength{\itemsep}{0pt} % No extra space between items
         \setlength{\parskip}{0pt}
       \item Two \texttt{fd}s pointing to the same system-wide entry share offset and metadata.
-      \item Created using \texttt{dup()}, \texttt{dup2()}, or inherited from \texttt{fork()}.
+      \item Created using \texttt{dup/2()}, or inherited from \texttt{fork()}.
     \end{itemize}
-  
-    \item Accessing file info:
-    \begin{itemize}
-        \setlength{\itemsep}{0pt} % No extra space between items
-        \setlength{\parskip}{0pt}
-      \item Use \texttt{fcntl(fd, F\_GETFL)} to query file status flags.
-      \item Use \texttt{lseek(fd, 0, SEEK\_CUR)} to query current offset.
-    \end{itemize}
+\vspace{-0.6em}
   \end{itemize}
 \vspace{-1.5em}
 
@@ -576,50 +467,96 @@ Directory management & Linear list & Hash tree (ext4) & B-tree \\
       \setlength{\itemsep}{0pt} % No extra space between items
       \setlength{\parskip}{0pt}
       \item Opens a file and returns a file descriptor (int).
-      \item \texttt{flags} specify access mode: \texttt{O\_RDONLY}, \texttt{O\_WRONLY}, \texttt{O\_RDWR}, \texttt{O\_CREAT}, etc.
-      \item \texttt{mode} is required if \texttt{O\_CREAT} is used, to set permission bits.
+      \item \texttt{flags}: \texttt{O\_RDONLY}, \texttt{O\_WRONLY}, \texttt{O\_RDWR}, \texttt{O\_CREAT}, etc.
+      \item \texttt{mode} required if \texttt{O\_CREAT} is used, set permission bits.
     \end{itemize}
-\vspace{-0.5em}
+\vspace{-0.6em}
   \item \textbf{\texttt{read(int fd, void *buf, size\_t count)}}:
-\vspace{-0.5em}
+\vspace{-0.6em}
     \begin{itemize}
       \setlength{\itemsep}{0pt} % No extra space between items
       \setlength{\parskip}{0pt}
-      \item Reads up to \texttt{count} bytes from file descriptor \texttt{fd} into buffer \texttt{buf}.
+      \item Reads up to \texttt{count} bytes from \texttt{fd} into buffer \texttt{buf}.
       \item Returns the number of bytes read, or 0 on EOF.
       \item Advances the file offset by the number of bytes read.
     \end{itemize}
-\vspace{-0.5em}
+\vspace{-0.6em}
   \item \textbf{\texttt{write(int fd, const void *buf, size\_t count)}}:
-\vspace{-0.5em}
+\vspace{-0.6em}
     \begin{itemize}
       \setlength{\itemsep}{0pt} % No extra space between items
       \setlength{\parskip}{0pt}
-      \item Writes up to \texttt{count} bytes from buffer \texttt{buf} to file descriptor \texttt{fd}.
+      \item Writes up to \texttt{count} bytes from buffer \texttt{buf} to \texttt{fd}.
       \item Returns the number of bytes written.
       \item Advances the file offset by the number of bytes written.
     \end{itemize}
-\vspace{-0.5em}
+\vspace{-0.6em}
   \item \textbf{\texttt{lseek(int fd, off\_t offset, int whence)}}:
-\vspace{-0.5em}
+\vspace{-0.6em}
     \begin{itemize}
       \setlength{\itemsep}{0pt} % No extra space between items
       \setlength{\parskip}{0pt}
       \item Moves the file offset for \texttt{fd}.
       \item \texttt{whence} can be \texttt{SEEK\_SET}, \texttt{SEEK\_CUR}, or \texttt{SEEK\_END}.
-      \item Returns the new offset, or \texttt{-1} on error.
     \end{itemize}
-\vspace{-0.5em}
+\vspace{-0.6em}
   \item \textbf{\texttt{close(int fd)}}:
-\vspace{-0.5em}
+\vspace{-0.6em}
     \begin{itemize}
       \setlength{\itemsep}{0pt} % No extra space between items
       \setlength{\parskip}{0pt}
-      \item Closes the file descriptor \texttt{fd}.
-      \item Releases the file table entry and associated kernel resources.
-      \item Returns 0 on success, \texttt{-1} on error.
+      \item Closes \texttt{fd}.
+      \item Releases the open file table entry.
     \end{itemize}
-\vspace{-0.6em}
+\vspace{-1.2em}
 \end{itemize}
-
+\noindent\makebox[\columnwidth][c]{%
+  \includegraphics[
+    width=\columnwidth,
+    trim=0 0 0 0,
+    clip
+  ]{pro.jpg}%
+}
+\noindent\makebox[\columnwidth][c]{%
+  \includegraphics[
+    width=\columnwidth,
+    trim=0 0 0 0,
+    clip
+  ]{sig.jpg}%
+}
+\noindent\makebox[\columnwidth][c]{%
+  \includegraphics[
+    width=\columnwidth,
+    trim=0 0 0 0,
+    clip
+  ]{v.jpg}%
+}
+\noindent\makebox[\columnwidth][c]{%
+  \includegraphics[
+    width=\columnwidth,
+    trim=0 0 0 0,
+    clip
+  ]{hd.jpg}%
+}
+\noindent\makebox[\columnwidth][c]{%
+  \includegraphics[
+    width=\columnwidth,
+    trim=0 0 0 0,
+    clip
+  ]{FATEXT.jpg}%
+}
+\noindent\makebox[\columnwidth][c]{%
+  \includegraphics[
+    width=\columnwidth,
+    trim=0 0 0 0,
+    clip
+  ]{ext2.jpg}%
+}
+\noindent\makebox[\columnwidth][c]{%
+  \includegraphics[
+    width=\columnwidth,
+    trim=0 0 0 0,
+    clip
+  ]{fd.png}%
+}
 \end{document}
