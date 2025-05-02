@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.22)  28 APR 2025 14:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.22)  1 MAY 2025 19:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -310,7 +310,16 @@ File: listings.cfg 2023/02/27 1.9 listings configuration
 Package: listings 2023/02/27 1.9 (Carsten Heinz)
  (/usr/local/texlive/2023/texmf-dist/tex/latex/doublestroke/dsfont.sty
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
-) (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
@@ -326,24 +335,24 @@ LaTeX Warning: Unused global option(s):
 (./tmp.aux)
 \openout1 = `tmp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -379,7 +388,7 @@ LaTeX Font Info:    ... okay on input line 36.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 36.
+Package hyperref Info: Link coloring OFF on input line 37.
 (./tmp.out) (./tmp.out)
 \@outlinefile=\write3
 \openout3 = `tmp.out'.
@@ -404,15 +413,25 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \c@lstlisting=\count303
-
-Underfull \hbox (badness 10000) in paragraph at lines 73--75
+LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 10000) in paragraph at lines 81--83
 \OT1/cmtt/m/n/10 pthread[]t *thread, const pthread[]attr[]t *attr,
  []
 
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 100.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 104.
+[1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-Overfull \hbox (1.11655pt too wide) in paragraph at lines 340--355
+
+{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Overfull \hbox (1.11655pt too wide) in paragraph at lines 425--440
  [][] 
  []
 
@@ -420,70 +439,121 @@ Overfull \hbox (1.11655pt too wide) in paragraph at lines 340--355
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (1.11655pt too wide) in paragraph at lines 360--375
+Overfull \hbox (1.11655pt too wide) in paragraph at lines 445--460
  [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[1
-
-{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 464.
-<pro.jpg, id=51, 1634.105pt x 473.77pt>
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 514.
+[2]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 624.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 624.
+<pro.jpg, id=123, 1634.105pt x 473.77pt>
 File: pro.jpg Graphic file (type jpg)
 <use pro.jpg>
-Package pdftex.def Info: pro.jpg  used on input line 519.
+Package pdftex.def Info: pro.jpg  used on input line 634.
 (pdftex.def)             Requested size: 279.30017pt x 80.97357pt.
-<sig.jpg, id=53, 1228.59pt x 592.2125pt>
+<sig.jpg, id=125, 1228.59pt x 592.2125pt>
 File: sig.jpg Graphic file (type jpg)
 <use sig.jpg>
-Package pdftex.def Info: sig.jpg  used on input line 526.
+Package pdftex.def Info: sig.jpg  used on input line 641.
 (pdftex.def)             Requested size: 279.30017pt x 134.62463pt.
-<v.jpg, id=55, 1495.5875pt x 548.0475pt>
-File: v.jpg Graphic file (type jpg)
-<use v.jpg>
-Package pdftex.def Info: v.jpg  used on input line 533.
-(pdftex.def)             Requested size: 279.30017pt x 102.34888pt.
-<hd.jpg, id=57, 1413.28pt x 548.0475pt>
-File: hd.jpg Graphic file (type jpg)
-<use hd.jpg>
-Package pdftex.def Info: hd.jpg  used on input line 540.
-(pdftex.def)             Requested size: 279.30017pt x 108.303pt.
-<FATEXT.jpg, id=59, 1575.8875pt x 691.58376pt>
-File: FATEXT.jpg Graphic file (type jpg)
-<use FATEXT.jpg>
-Package pdftex.def Info: FATEXT.jpg  used on input line 547.
-(pdftex.def)             Requested size: 279.30017pt x 122.56966pt.
-<ext2.jpg, id=61, 1649.16125pt x 664.4825pt>
-File: ext2.jpg Graphic file (type jpg)
-<use ext2.jpg>
-Package pdftex.def Info: ext2.jpg  used on input line 554.
-(pdftex.def)             Requested size: 279.30017pt x 112.53468pt.
-<fd.png, id=63, 1517.67pt x 849.1725pt>
-File: fd.png Graphic file (type png)
-<use fd.png>
-Package pdftex.def Info: fd.png  used on input line 561.
-(pdftex.def)             Requested size: 279.30017pt x 156.26518pt.
- [2 <./pro.jpg> <./sig.jpg> <./v.jpg> <./hd.jpg> <./FATEXT.jpg> <./ext2.jpg> <./fd.png (PNG copy)>] (./tmp.aux)
+<2lvl.jpg, id=127, 2042.63126pt x 1075.01625pt>
+File: 2lvl.jpg Graphic file (type jpg)
+<use 2lvl.jpg>
+Package pdftex.def Info: 2lvl.jpg  used on input line 648.
+(pdftex.def)             Requested size: 279.30017pt x 146.99092pt.
+<pgidx.jpg, id=129, 1682.285pt x 1078.0275pt>
+File: pgidx.jpg Graphic file (type jpg)
+<use pgidx.jpg>
+Package pdftex.def Info: pgidx.jpg  used on input line 655.
+(pdftex.def)             Requested size: 279.30017pt x 178.96896pt.
+<tlb.jpg, id=131, 1427.3325pt x 838.13126pt>
+File: tlb.jpg Graphic file (type jpg)
+<use tlb.jpg>
+Package pdftex.def Info: tlb.jpg  used on input line 662.
+(pdftex.def)             Requested size: 279.30017pt x 164.00404pt.
+<sgtb.jpg, id=133, 1228.59pt x 546.04pt>
+File: sgtb.jpg Graphic file (type jpg)
+<use sgtb.jpg>
+Package pdftex.def Info: sgtb.jpg  used on input line 669.
+(pdftex.def)             Requested size: 279.30017pt x 124.12848pt.
+<oft.png, id=135, 567.11874pt x 369.38pt>
+File: oft.png Graphic file (type png)
+<use oft.png>
+Package pdftex.def Info: oft.png  used on input line 676.
+(pdftex.def)             Requested size: 279.30017pt x 181.92212pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+<samefile2.jpg, id=138, 1228.59pt x 439.6425pt>
+File: samefile2.jpg Graphic file (type jpg)
+<use samefile2.jpg>
+Package pdftex.def Info: samefile2.jpg  used on input line 700.
+(pdftex.def)             Requested size: 279.30017pt x 99.94167pt.
+<sameofst2.jpg, id=140, 1228.59pt x 357.335pt>
+File: sameofst2.jpg Graphic file (type jpg)
+<use sameofst2.jpg>
+Package pdftex.def Info: sameofst2.jpg  used on input line 707.
+(pdftex.def)             Requested size: 279.30017pt x 81.23112pt.
+<FAT.jpg, id=142, 919.435pt x 847.165pt>
+File: FAT.jpg Graphic file (type jpg)
+<use FAT.jpg>
+Package pdftex.def Info: FAT.jpg  used on input line 714.
+(pdftex.def)             Requested size: 279.30017pt x 257.34435pt.
+<blkex.jpg, id=144, 1488.56125pt x 959.585pt>
+File: blkex.jpg Graphic file (type jpg)
+<use blkex.jpg>
+Package pdftex.def Info: blkex.jpg  used on input line 723.
+(pdftex.def)             Requested size: 279.30017pt x 180.03888pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <./pro.jpg> <./sig.jpg> <./2lvl.jpg> <./pgidx.jpg> <./tlb.jpg> <./sgtb.jpg> <./oft.png> <./samefile2.jpg> <./sameofst2.jpg>]
+<inode.jpg, id=162, 1640.1275pt x 943.525pt>
+File: inode.jpg Graphic file (type jpg)
+<use inode.jpg>
+Package pdftex.def Info: inode.jpg  used on input line 801.
+(pdftex.def)             Requested size: 279.30017pt x 160.67067pt.
+<ext2ind.jpg, id=164, 1230.5975pt x 960.58875pt>
+File: ext2ind.jpg Graphic file (type jpg)
+<use ext2ind.jpg>
+Package pdftex.def Info: ext2ind.jpg  used on input line 874.
+(pdftex.def)             Requested size: 279.30017pt x 218.01395pt.
+<lnm.jpg, id=166, 1170.3725pt x 252.945pt>
+File: lnm.jpg Graphic file (type jpg)
+<use lnm.jpg>
+Package pdftex.def Info: lnm.jpg  used on input line 915.
+(pdftex.def)             Requested size: 279.30017pt x 60.36453pt.
+<idxnode.jpg, id=168, 1117.17375pt x 810.02625pt>
+File: idxnode.jpg Graphic file (type jpg)
+<use idxnode.jpg>
+Package pdftex.def Info: idxnode.jpg  used on input line 924.
+(pdftex.def)             Requested size: 279.30017pt x 202.50606pt.
+ [4 <./FAT.jpg> <./blkex.jpg> <./inode.jpg> <./ext2ind.jpg> <./lnm.jpg> <./idxnode.jpg>] (./tmp.aux)
 Package rerunfilecheck Info: File `tmp.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 12467 strings out of 476025
- 190957 string characters out of 5790016
- 1992388 words of memory out of 5000000
- 32736 multiletter control sequences out of 15000+600000
- 514623 words of font info for 41 fonts, out of 8000000 for 9000
+ 13271 strings out of 476025
+ 200723 string characters out of 5790016
+ 2082388 words of memory out of 5000000
+ 33432 multiletter control sequences out of 15000+600000
+ 522575 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,13n,76p,407b,1335s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on tmp.pdf (2 pages, 1443554 bytes).
+ 75i,13n,76p,407b,1544s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on tmp.pdf (4 pages, 2951234 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 88 compressed objects within 1 object stream
- 35 named destinations out of 1000 (max. 500000)
- 78 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 297 PDF objects out of 1000 (max. 8388607)
+ 213 compressed objects within 3 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 166 words of extra memory for PDF output out of 10000 (max. 10000000)
 
